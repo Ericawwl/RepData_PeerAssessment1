@@ -465,16 +465,6 @@ medianstep&lt;-median(stepbydate$totalstep);</code></pre>
         group_by(interval)%&gt;%
         summarise(avgstep=mean(steps, na.rm = T))</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre class="r"><code>head(pattern)</code></pre>
-<pre><code>## # A tibble: 6 x 2
-##   interval avgstep
-##      &lt;int&gt;   &lt;dbl&gt;
-## 1        0  1.72  
-## 2        5  0.340 
-## 3       10  0.132 
-## 4       15  0.151 
-## 5       20  0.0755
-## 6       25  2.09</code></pre>
 </div>
 <div id="plotting-and-max-interval" class="section level3">
 <h3>plotting and max interval</h3>
@@ -500,15 +490,7 @@ missinginterval&lt;-sum(is.na(activity$interval));</code></pre>
 <h3>replace missing values in steps with mean steps and create a new dataset</h3>
 <pre class="r"><code>meansteptotal&lt;-mean(activity$steps,na.rm = T)
 activity_nareplace&lt;-activity %&gt;%
-        mutate(nareplace=ifelse(is.na(steps),meansteptotal,steps))
-head(activity_nareplace)</code></pre>
-<pre><code>##   steps       date interval nareplace
-## 1    NA 2012-10-01        0   37.3826
-## 2    NA 2012-10-01        5   37.3826
-## 3    NA 2012-10-01       10   37.3826
-## 4    NA 2012-10-01       15   37.3826
-## 5    NA 2012-10-01       20   37.3826
-## 6    NA 2012-10-01       25   37.3826</code></pre>
+        mutate(nareplace=ifelse(is.na(steps),meansteptotal,steps))</code></pre>
 </div>
 <div id="histogram" class="section level3">
 <h3>histogram</h3>
@@ -516,16 +498,6 @@ head(activity_nareplace)</code></pre>
         group_by(date)%&gt;%
         summarise(totalsteps=sum(nareplace));</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre class="r"><code>head(stepbydatenarm);</code></pre>
-<pre><code>## # A tibble: 6 x 2
-##   date       totalsteps
-##   &lt;chr&gt;           &lt;dbl&gt;
-## 1 2012-10-01     10766.
-## 2 2012-10-02       126 
-## 3 2012-10-03     11352 
-## 4 2012-10-04     12116 
-## 5 2012-10-05     13294 
-## 6 2012-10-06     15420</code></pre>
 <pre class="r"><code> hist(stepbydatenarm$totalsteps,
       breaks = 100,
      xlab = &quot;number of total steps per day&quot;,
@@ -547,18 +519,7 @@ medianstep_narm&lt;-median(stepbydatenarm$totalsteps)</code></pre>
                           weekdayorend=ifelse(weekdays==&quot;Saturday&quot;|weekdays==&quot;Sunday&quot;,&quot;weekend&quot;,&quot;weekday&quot;));
 activity_weekdays&lt;-select(activity_weekdays,interval,steps, weekdayorend)%&gt;%
         group_by(interval)%&gt;%
-        mutate(avgsteps=mean(steps,na.rm = T));
-head(activity_weekdays);</code></pre>
-<pre><code>## # A tibble: 6 x 4
-## # Groups:   interval [6]
-##   interval steps weekdayorend avgsteps
-##      &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;dbl&gt;
-## 1        0    NA weekday        1.72  
-## 2        5    NA weekday        0.340 
-## 3       10    NA weekday        0.132 
-## 4       15    NA weekday        0.151 
-## 5       20    NA weekday        0.0755
-## 6       25    NA weekday        2.09</code></pre>
+        mutate(avgsteps=mean(steps,na.rm = T));</code></pre>
 </div>
 <div id="plotting" class="section level3">
 <h3>plotting</h3>

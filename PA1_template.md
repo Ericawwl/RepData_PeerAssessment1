@@ -86,22 +86,6 @@ pattern<-select(activity, interval, steps)%>%
 ```
 ## `summarise()` ungrouping output (override with `.groups` argument)
 ```
-
-```r
-head(pattern)
-```
-
-```
-## # A tibble: 6 x 2
-##   interval avgstep
-##      <int>   <dbl>
-## 1        0  1.72  
-## 2        5  0.340 
-## 3       10  0.132 
-## 4       15  0.151 
-## 5       20  0.0755
-## 6       25  2.09
-```
 ### plotting and max interval
 
 ```r
@@ -134,17 +118,6 @@ missinginterval<-sum(is.na(activity$interval));
 meansteptotal<-mean(activity$steps,na.rm = T)
 activity_nareplace<-activity %>%
         mutate(nareplace=ifelse(is.na(steps),meansteptotal,steps))
-head(activity_nareplace)
-```
-
-```
-##   steps       date interval nareplace
-## 1    NA 2012-10-01        0   37.3826
-## 2    NA 2012-10-01        5   37.3826
-## 3    NA 2012-10-01       10   37.3826
-## 4    NA 2012-10-01       15   37.3826
-## 5    NA 2012-10-01       20   37.3826
-## 6    NA 2012-10-01       25   37.3826
 ```
 ### histogram
 
@@ -156,22 +129,6 @@ stepbydatenarm<-select(activity_nareplace,nareplace,date)%>%
 
 ```
 ## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
-```r
-head(stepbydatenarm);
-```
-
-```
-## # A tibble: 6 x 2
-##   date       totalsteps
-##   <chr>           <dbl>
-## 1 2012-10-01     10766.
-## 2 2012-10-02       126 
-## 3 2012-10-03     11352 
-## 4 2012-10-04     12116 
-## 5 2012-10-05     13294 
-## 6 2012-10-06     15420
 ```
 
 ```r
@@ -201,20 +158,6 @@ activity_weekdays<-mutate(activity, weekdays=weekdays(as.Date(activity$date)),
 activity_weekdays<-select(activity_weekdays,interval,steps, weekdayorend)%>%
         group_by(interval)%>%
         mutate(avgsteps=mean(steps,na.rm = T));
-head(activity_weekdays);
-```
-
-```
-## # A tibble: 6 x 4
-## # Groups:   interval [6]
-##   interval steps weekdayorend avgsteps
-##      <int> <int> <chr>           <dbl>
-## 1        0    NA weekday        1.72  
-## 2        5    NA weekday        0.340 
-## 3       10    NA weekday        0.132 
-## 4       15    NA weekday        0.151 
-## 5       20    NA weekday        0.0755
-## 6       25    NA weekday        2.09
 ```
 
 ### plotting

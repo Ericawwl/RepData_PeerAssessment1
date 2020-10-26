@@ -11,7 +11,6 @@ output:
 ```{r}
 unzip('activity.zip')
 activity<-read.csv('activity.csv')
-head(activity)
 ```
 ## What is mean total number of steps taken per day?
 ### sort out data
@@ -38,7 +37,6 @@ the mean total number of steps taken per day is `r round(meanstep,1)`, and the m
 pattern<-select(activity, interval, steps)%>%
         group_by(interval)%>%
         summarise(avgstep=mean(steps, na.rm = T))
-head(pattern)
 ```
 ### plotting and max interval
 ```{r}
@@ -66,14 +64,12 @@ missinginterval<-sum(is.na(activity$interval));
 meansteptotal<-mean(activity$steps,na.rm = T)
 activity_nareplace<-activity %>%
         mutate(nareplace=ifelse(is.na(steps),meansteptotal,steps))
-head(activity_nareplace)
 ```
 ### histogram
 ```{r}
 stepbydatenarm<-select(activity_nareplace,nareplace,date)%>%
         group_by(date)%>%
         summarise(totalsteps=sum(nareplace));
-head(stepbydatenarm);
  hist(stepbydatenarm$totalsteps,
       breaks = 100,
      xlab = "number of total steps per day",
@@ -96,7 +92,6 @@ activity_weekdays<-mutate(activity, weekdays=weekdays(as.Date(activity$date)),
 activity_weekdays<-select(activity_weekdays,interval,steps, weekdayorend)%>%
         group_by(interval)%>%
         mutate(avgsteps=mean(steps,na.rm = T));
-head(activity_weekdays);
 ```
 
 ### plotting
